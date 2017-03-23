@@ -1,0 +1,1446 @@
+/* This file includes One Design as well as latest PB changes (42120 and 42127)
+    Missing Gavin styles (build#42015 and 42211)*/
+
+$font-primary: "ProximaNovaRegular", Helvetica, Arial, sans-serif;
+
+$font-icon: "icomoon";
+$font-icon2: "icomoon";
+
+$baseline-px: 16;
+
+$primary: #003A6F;
+$primary-light: #5780ae;
+$brand-red: #d12e32;
+$link: #246FC8;
+$alert: #a22730;
+$primaryRates: #008200;
+$secondaryRates: $primary;
+$disclosure: #767676;
+$text: #262626;
+
+.rewards_one_design {
+  * { font-family: $font-primary; }
+
+  .c1-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    cursor: pointer;
+    background: #008a00;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5em 1em;
+    width: 100%;
+    color: #fff !important;
+    text: {
+      align: center;
+      decoration: none;
+      shadow: none;
+    }
+    font: {
+      size: em(16);
+      family: $font-primary;
+    }
+
+    &::-moz-focus-inner { border: none; }
+    &:hover, &:focus {
+      background: #007c00;
+      text-decoration: none;
+    }
+    &:focus {
+      outline: 1px dotted #888;
+      /*border-color: #004107;
+            box-shadow: 0 0px 5px #000;*/
+      box-shadow: 0px 0px 7px 0px #06F !important;
+    }
+    &:disabled {
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+      cursor: no-drop;
+    }
+    span {
+      display: inline;
+      width: auto;
+      height: auto;
+      line-height: 1;
+      vertical-align: baseline;
+      background: {
+        image: none;
+        position: 0 0;
+        repeat: repeat;
+      }
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      margin: -8px 0 0;
+      &:before {
+        color: #fff;
+        // @include iconFont();
+      }
+    }
+  }
+
+  button, a, input {
+    // button class, border-color/end, start
+    $colors: (
+      "blue"  #0D74AF #006fa0 #007cac,
+      "gray"  #606a77 #2e3d4e,
+      "red"   #d22e22 #c11623,
+      "ghost" none rgba(0,0,0,0.2)
+    );
+    @each $color in $colors {
+      &.#{nth($color,1)} {
+        background: nth($color, 2);
+        &:hover, &:focus {
+          background: nth($color, 3);
+        }
+        &:focus {
+          box-shadow: 0px 0px 7px 0px #06F !important;
+        }
+      }
+    }
+    &.ghost {
+      box-shadow: 0 0 0 1px #0D74AF inset !important;
+      color: #0D74AF !important;
+      &:hover { 
+        color: #006fa0 !important; 
+        box-shadow: 0 0 0 1px #006fa0 inset !important;
+        background: none;
+      }
+      &:focus {
+        background-color: #fff;
+      }
+    }
+    &.small {
+      padding: 8px;
+      font-size: em(14);
+    }
+    &.xsmall {
+      padding: 4px 5px;
+      font-size: em(12);
+    }
+    &.icon-right, &.right-icon {
+      padding-right: 30px;
+      span { right: 10px; }
+    }
+    &.left-icon, &.icon-left {
+      padding-left: 30px;
+      span { left: 10px; }
+    }
+  }
+  .reversed {
+    button, a, input {
+      &.ghost {
+        box-shadow: 0 0 0 2px #fff inset;
+        color: #fff !important;
+      }
+    }
+  }
+  .page_title {
+    font-family: $font-primary;
+  }
+
+}
+
+
+@mixin responsive-font($responsive, $min, $max: false, $fallback: false) {
+  $responsive-unitless: $responsive / ($responsive - $responsive + 1);
+  $dimension: if(unit($responsive) == 'vh', 'height', 'width');
+  $min-breakpoint: $min / $responsive-unitless * 100;
+
+  @media (max-#{$dimension}: #{$min-breakpoint}) {
+    font-size: $min;
+  }
+
+  @if $max {
+    $max-breakpoint: $max / $responsive-unitless * 100;
+
+    @media (min-#{$dimension}: #{$max-breakpoint}) {
+      font-size: $max;
+    }
+  }
+
+  @if $fallback {
+    font-size: $fallback;
+  }
+
+  font-size: $responsive;
+}
+
+@mixin display-flex {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin all-flex($value) {
+  -webkit-box-flex: $value;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: $value;         /* OLD - Firefox 19- */
+  -webkit-flex: $value;          /* Chrome */
+  -ms-flex: $value;              /* IE 10 */
+  flex: $value;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin all-flex-direction($value) {
+  -webkit-box-flex-direction: $value;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex-direction: $value;         /* OLD - Firefox 19- */
+  -webkit-flex-direction: $value;          /* Chrome */
+  -ms-flex-direction: $value;              /* IE 10 */
+  flex-direction: $value;                            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin all-flex-order($value) {
+  -webkit-box-ordinal-group: $value;   /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-ordinal-group: $value;      /* OLD - Firefox 19- */
+  -ms-flex-order: $value;              /* TWEENER - IE 10 */
+  -webkit-order: $value;               /* NEW - Chrome */
+  order: $value;                       /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+.bricklets_wrapper{
+  @include display-flex;
+	@include all-flex-direction(row);
+		#rewards_account_bricklet{
+      @include all-flex(1);
+		}
+}
+
+#rewards_summary {
+	&.single_account_earn{
+		height: 127px;
+		.rewards_container{
+			padding-top: 2.5% ;
+			.rewards_card_image{
+				width: 150px ;
+			}
+			.rewards_account_info{
+				margin-top: 18px;
+				width: 35%;
+			}
+			.rewards_balance_info{
+				margin-top: 27px;
+			}
+		}
+	}
+  &.multiple_accounts {
+    margin-bottom: 0 !important;
+    padding-top: 25px !important;
+    padding-bottom: 0 !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    .rewards_container {
+      .rewards_card_image {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  .rewards_container {
+    width: 100%;
+    .rewards_card_image {
+      float: left;
+      width: 120px;
+      margin: 0px 20px 0px 0px;
+
+      /*
+             * Fix this... used to constrain card art. Need to properly size art instead
+             */
+      .rewards_card_image_80 {
+        width: 100%;
+      }
+    }
+
+    .rewards_account_info {
+      float: left;
+      @include all-flex(1);
+      overflow: hidden;
+      margin-top: 17px;
+
+      .rewards_account_name {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-family: $font-primary;
+        font-size: 28px;
+        font-size: 2.8rem;
+        font-weight: bold;
+      }
+      .rewards_account_number {
+        position: relative;
+        margin-top: 0;
+        padding-top: 0;
+        font-family: $font-primary;
+        font-size: 13px;
+        font-size: 1.3rem;
+      }
+    }
+
+    .rewards_balance_info {
+      float: right;
+      margin-top: 17px;
+
+      .rewards_balance_container {
+        float: right;
+        height: 100%;
+
+        .rewards_balance {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          font-family: $font-primary;
+          @include responsive-font(2.1vw, 23px, 28px);
+          color: #0D74AF;
+          text-align: right;
+          display: block;
+          cursor: pointer;
+        }
+		.rewards_balance_smaller{
+		  font-size: 2.2rem;
+		}
+        .rewards_currency {
+          float: right;
+          margin-top: 0;
+          padding-top: 0;
+          font-family: $font-primary;
+          font-size: 13px;
+          font-size: 1.3rem;
+          color: #0D74AF;
+        }
+      }
+
+
+      .outer_div {
+        display: table;
+        position: relative;
+        overflow: hidden;
+        width: 170px;
+        padding-top: 15px;
+
+        .inner_div {
+          position: absolute;
+          top: 50%;
+          display: table-cell;
+          vertical-align: middle;
+
+          .rewards_balance_link {
+            position: relative;
+            top: -50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+#rewards_accounts {
+  margin-bottom: 0;
+  background: #fff;
+  width: 100%;
+  margin-left: 0;
+  border-radius: 0px;
+  padding: 0;;
+  border-top: none;
+  border-bottom: none;
+
+  &:focus {
+    box-shadow: #06f 0 0 7px 0;
+    border: 3px solid #06f;
+  }
+
+  .rewards_account {
+    float: left;
+    width: 20%;
+    padding-top: 30px;
+    min-width: 150px;
+
+    &.rewards_account_selected {
+      opacity: 1;
+      background:#ebeaec;
+      z-index: 10;
+
+      // .rewards_account_selector_name { color:#fff; overflow:hidden; }
+      // .rewards_account_selector_number { color:#fff; }
+    }
+
+    a:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    a:focus .rewards_account_selector_image {
+      box-shadow: #06f 0 0 7px 0;
+      border: 3px solid #06f;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .rewards_account_selector_image {
+      width:120px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 0;
+      border: 1px solid transparent;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+
+    .rewards_account_selector_name {
+      float: left;
+      width: 100%;
+      text-align: center;
+      color: #246FC8;
+      font-family: $font-primary;
+      font-size: 18px;
+      font-style: bold;
+      padding: 10px 0;
+    }
+
+    .rewards_account_selector_number {
+      float: left;
+      width:100%;
+      text-align: center;
+      font-family: $font-primary;
+      font-size: 12px;
+      padding-bottom: 20px;
+      color: #246FC8;
+    }
+
+  }
+}
+
+#rewards_drawer {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  text-align: center;
+  padding-top: 9.5px;
+  padding-bottom: 9.5px;
+
+  .view_other_hide_accounts {
+    text-align:center;
+  }
+  .arrow_down, .arrow_up {
+    font-size: 12px;
+    position: relative;
+    top: 1px;
+    cursor:pointer
+  }
+
+  .rewards_detail_text {
+    font-family: $font-primary;
+    font-size: 13px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333 !important;
+    padding: 0 12px 0 0;
+    &#openDrawerLink,&#closeDrawerLink {
+      color: $link !important;
+    }
+  }
+}
+
+#rewards_earn_bricklet_mobile{
+	display:none;
+}
+
+#rewards_earn_bricklet {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px gray;
+    width: 31rem;
+    display: inline-block;
+    height: 15.15rem;
+    margin-bottom: 30px;
+    margin-left: .7%;
+    :hover {
+    	cursor: pointer;
+    }
+	.rewards_earn_header{
+        border-bottom: 1px solid #E8E4E7;
+	    width: 90%;
+    	padding-bottom: 5px;
+    	padding-top: 8px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    font-size: 1.3rem;;
+	}
+	#rewards_earn_currency_image {
+		float:right;
+		height: 60px;
+		margin-right: 8%;
+    	margin-top: 4.5%;
+	}
+	.rewards_earn_info_wrapper{
+	    padding-left: 5%;
+    	padding-top: 4.25%;
+    		.rewards_earn_info_text{
+    			padding-bottom: 0;
+			    font-size: 1.5rem;
+    		}
+    		.rewards_earn_info_text_smaller{
+    			font-size: 1.3rem;
+    		}	
+			.rewards_earn_rate{
+			    padding: 0 0 0;
+		        font-weight: bold;
+			    color: #128020;
+		        line-height: 2.5rem;
+    			font-size: 2rem;
+			}
+			.rewards_earn_rate_small{
+				font-size: 1.8rem;
+			}
+			.rewards_earn_rate_smaller{
+				font-size: 1.5rem;
+				line-height: 0rem;
+			}
+	}
+	.rewards_earn_info_wrapper_center{
+		padding-top: 5.25%;
+	}
+	.earnMoreDetailsLinkWrapper{
+	    text-align: center;
+	    margin-top: 4%;
+	    width: 90%;
+	    margin-left: auto;
+	    margin-right: auto;
+	    padding-top: 2%;
+	    padding-bottom: 1% !important;
+	    #rewards_earn_more_details_faq_link{
+	    	font-weight: bold;	
+	    }
+	}
+	.earnMoreDetailsLinkWrapper_line{
+		margin-top: 5%;
+	}
+}
+
+/* The below is to fix the rewards home page content not have article bricklet styling in IE8 */
+\:article#rewards_content {
+  background: #fff;
+  border-radius: 3px;
+  // box-shadow: 0px 1px 3px #808080;
+  float: left;
+  padding: 12px 2%;
+  position: relative;
+  width: 96%;
+  margin-bottom: 30px;
+  border: 1px solid #ceccd0;
+}
+
+.right_rail_link_holder {
+  display: inline-block;
+  width: 32%;
+  vertical-align: top;
+  padding-left: 10px;
+  text-indent: -10px;
+  margin: 0.6em 0 0.5em 0; 
+  .rewards_right_rail_link {
+    font-size: 18px;
+    font-family: $font-primary;
+    padding-left: 0;
+    padding-top: 5px;
+    line-height: 18px;
+    color: #0D74AF;
+    white-space: inherit;
+    margin: 0 1em 0 0.5em; 
+    text-indent: 0;
+  }
+
+  /* Sony */
+  .rewards_sony_right_title {
+    margin-left: 20px;
+    margin-bottom: 4px;
+  }
+}
+.rewards_redemption_section_heading {
+  padding-bottom: 5px;
+  font-family: $font-primary;
+  font-size: 15px;
+  text-transform: uppercase;
+  width: 65%;
+}
+.rewards_right_content_reskin{
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px #808080;
+  float: left;
+  padding: 12px 2%;
+  position: relative;
+  width: 96%;
+  margin-bottom: 30px;
+
+  .rewards_right_rail_header{
+    display:none;
+  }
+}
+
+#other_options .rewards_redemption_category_header{
+  border-bottom:none !important;
+  width: 100%;
+  background-color: #ffffff;
+  position: relative;
+  float: left;
+  padding: 5px 0 0;
+  margin-bottom: -4px !important;
+}
+
+#rewards_content {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  .rewards_error_message {
+    font-family: $font-primary;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+    color: #ffffff;
+    background: $brand-red;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 1px 0 #fff inset, 0 1px 0 #fff;
+    width: 97%;
+    margin-bottom: 20px;
+    margin-top: 1em;
+    p {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: bold;
+      padding-bottom: 0;
+    }
+  }
+  .rewards_left_content {
+    &.ihg_delta_account {
+      width:100%;
+      border:none;
+      padding-top:0;
+
+      .rewards_redemption_category {
+        margin:0;
+        padding:0;
+
+        .ihg_delta_account_info_message {
+          text-align:center;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.4) inset,0 1px 0 #fff;
+          background: rgba(0,0,0,0.08);
+          border-radius: 3px;
+          padding: 15px 18px 15px 18px;
+          font-size: 13px;
+          line-height: 18px;
+          color: #333;
+          margin-bottom:15px;
+        }
+
+        .rewards_redemption_category_content {
+          text-align:center;
+          padding:0;
+          margin-bottom:7px;
+
+          /*.rewards_redemption_button {
+                margin:0;
+            }*/
+
+        }
+      }
+    }
+    float: left;
+    width: 100%;
+    border-right: none;
+
+    /*
+         * Can't find this in global, so adding from servicing guide and will replace
+         */
+    .rewards_account_error_message {
+      font-family: $font-primary;
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffffff;
+      background: $brand-red;
+      border-radius: 3px;
+      padding: 10px;
+      box-shadow: 0 1px 0 #fff inset, 0 1px 0 #fff;
+      width: 97%;
+      margin-bottom: 20px;
+      margin-top: 1em;
+      line-height: 18px;
+    }
+
+
+    .rewards_redemption_category {
+      &#rewards_activity_category {
+        margin-top: 20px;
+      }
+      .rewards_redemption_category_header {
+        width: 100%;
+        background-color: #ffffff;
+        border-bottom: 1px solid #ceccd0;
+        position: relative;
+        float: left;
+        padding: 5px 0;
+        margin-bottom: 5px;
+
+        div {
+          .rewards_redemption_category_logo {
+            width: 35px;
+            // margin: 0 15px 0 0;
+            margin: 7px 15px 0 10px;
+            float: left;
+          }
+        }
+
+        .rewards_redemption_category_data {
+          width: auto;
+          float: left;
+
+          .rewards_redemption_category_heading {
+            font-family: $font-primary;
+            font-size: 14px;
+            font-size: 2.1rem;
+            line-height: 2.5em;
+            float: left;
+            width: 100%;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+
+      .rewards_redemption_category_content {
+        margin-bottom: 0;
+        padding-top: 0;
+        .redemption_buttons_container {
+
+          position: relative;
+          float: right;
+          margin-right: 10px;
+          margin-top: 15px;
+
+          .redemption_position_container {
+            display: inline-block;
+            margin-right: 0;
+          }
+        }
+        .c1-button {
+          font-size: 2.5em;
+          font-family: $font-primary;
+          margin-left: 0.5em;
+          /*-webkit-transition: all 0.1s;
+                   -moz-transition: all 0.1s;
+                   -o-transition: all 0.1s;
+                   transition: all 0.1s; */
+          &:hover {
+            /* -webkit-transform: scale(1.05);
+                        -moz-transform: scale(1.05);
+                        -ms-transform: scale(1.05);
+                        -o-transform: scale(1.05);
+                        transform: scale(1.05);
+                        transition: all 0.1s; */
+          }
+        }
+        .is-disabled {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+    }
+
+
+    /* Styles for Sony */
+    a {
+      .rewards_sony_main_image {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+
+  }
+
+  .rewards_right_content {
+
+    float: left;
+    width: 100%;
+
+    // hide right rail header
+    .rewards_right_rail_header {
+      display: none;
+    }
+
+    // other options
+
+
+
+    .right_rail_sony {
+      width: 33%;
+      float: left;
+      margin-top: 20px;
+      .right_rail_link_holder_sony {
+        margin-bottom: 10px;
+
+        .rewards_right_rail_link_sony {
+          font-size: 16px;
+          font-family: $font-primary;
+          margin-left: 60px;
+          padding-top: 5px;
+          line-height: 18px;
+        }
+
+        /* Sony */
+        .rewards_sony_right_title {
+          margin-left: 20px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+
+    /* Sony */
+    .rewards_sony_right_banner {
+      margin: 20px 0px;
+      float: left;
+      width: 33%;
+    }
+
+    .rewards_sony_right_message {
+      margin-top: 20px;
+      width: 33%;
+      float: left;
+    }
+  }
+}
+
+
+/*
+ * This class needs to be cleaned up. It is not responsive, and the -margin is not good.
+ * Good enough for the demo though
+ */
+
+.one-design {
+  article.bricklet {
+    &#rewards_summary.multiple_accounts { border-bottom: none; }
+    &#rewards_accounts { border-top: 1px solid #ceccd0; }
+    &#rewards_summary, &#rewards_accounts, &#rewards_drawer, &#rewards_content {
+      box-shadow: none;
+    }
+
+    //namespace this
+    //
+    // re-adding as this was in previous versions of the file
+    border: 1px solid #ceccd0;
+  }
+}
+
+article.bricklet .rewards_full_width_separator {
+  padding-left: 0;
+  margin-left: -2%;
+  width:104%;
+  border-color: 1px solid #ceccd0;
+}
+
+article.bricklet .rewards_vertical_line {
+  width: 2px;
+  height: 250px;
+  background-color: #ceccd0;
+  float: left;
+  top: 0px;
+}
+
+/*
+ * Angular Animation Classes
+ */
+
+article.bricklet .rewards_drawer {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+
+article.bricklet .rewards_drawer.ng-hide {
+  opacity: 0;
+}
+
+article.bricklet .rewards_drawer.ng-hide-add,
+article.bricklet .rewards_drawer.ng-hide-remove {
+  display:block!important;
+}
+
+/*
+ * Triangle
+ */
+
+#triangle {
+  padding: 1em;
+  margin-top: 2em;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 500;
+    left:0;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 26px 25px 0 25px;
+    border-color: #d96000 transparent transparent transparent;
+  }
+
+
+  /*
+   * -------------------------------
+   * OneDesign integration globals
+   * to be moved to one_design.scss
+   * -------------------------------
+   */
+
+  body {
+    background: repeat;
+  }
+
+  #logo_link {
+    color: #fff;
+  }
+
+  .top_row ul {
+    margin: 0;
+  }
+
+  .sub ul > li,.top_row ul li {
+    list-style: none;
+  }
+
+  .spinner {
+    margin: 1px auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: .5em solid #fff;
+    border-right: .5em solid rgba(255,255,255, 0.4);
+    border-bottom: .5em solid rgba(255,255,255, 0.4);
+    border-left: .5em solid rgba(255,255,255, 0.4);
+    -webkit-animation: spin1 1.2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    animation: spin1 1.2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+  .spinner,
+  .spinner:after {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+  }
+
+  #account_prefs ul {
+    margin: 0 0 0 0;
+    list-style: none;
+  }
+
+  a.user_name {
+    &:focus,&:link,&:visited {
+      color: #fff;
+    }
+  }
+
+  .container {
+    width: 960px;
+    h1,h2,h3,h4,h5,h6 { font-family: $font-primary; }
+  }
+}
+
+/*
+ * Responsive
+ */
+
+@media only screen and (min-width : 800px) and (max-width : 850px){
+	.rewards_account_bricklet_wrapper{
+	#rewards_summary{
+	&.multiple_accounts{
+		padding-top: 20px !important;
+	}
+	.rewards_container{
+		.rewards_account_info{
+			width:45%;
+			margin-top: 5px;
+			.rewards_account_name{
+			    font-size: 21px;
+			}
+		}
+		.rewards_card_image{
+			margin-bottom: 22px;
+			padding-left: 12px;
+		}
+		.rewards_balance_info{
+			float: left;
+    		margin-top: 5px;
+			.rewards_balance_container{
+				.rewards_currency{
+					float: left;
+				}
+				.rewards_balance{
+					font-size: 2.2rem;
+				}
+    		}
+		}
+	}
+	}
+}
+}
+
+@media only screen and (max-width : 800px) {
+
+
+
+.rewards_account_bricklet_wrapper{
+	#rewards_summary{
+	&.multiple_accounts{
+		padding-top: 20px !important;
+	}
+	.rewards_container{
+		.rewards_account_info{
+			width:45%;
+			margin-top: 5px;
+		}
+		.rewards_card_image{
+			margin-bottom: 22px;
+			padding-left: 12px;
+		}
+		.rewards_balance_info{
+			float: left;
+    		margin-top: 5px;
+			.rewards_balance_container{
+				.rewards_currency{
+					float: left;
+				}
+				.rewards_balance{
+					font-size: 2.2rem;
+				}
+    		}
+		}
+	}
+	}
+}
+
+
+#rewards_summary.single_account_earn .rewards_container .rewards_card_image{
+	width: 40%;
+}
+
+
+
+  #rewards_summary {
+
+    .rewards_container {
+
+      .rewards_card_image {
+        padding-left: 20px;
+      }
+
+      .rewards_account_info {
+
+        .rewards_account_name {
+          font-family: $font-primary;
+          font-size: 21px;
+        }
+      }
+
+      .rewards_balance_info {
+        .rewards_balance {
+          font-size: 21px;
+        }
+      }
+    }
+  }
+
+  .right_rail_link_holder {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+    width: 85%;
+    margin-left: 1em;
+  }
+
+  #other_options .rewards_redemption_category_header{
+    border-bottom:none !important;
+    width: 100%;
+    background-color: #ffffff;
+    position: relative;
+    float: left;
+    padding: 5px 0 0;
+    margin-bottom: 8px !important;
+  }
+  #rewards_content {
+    .rewards_left_content {
+
+      border-right: 0px;
+      border-bottom: 1px solid #ceccd0;
+      width: 100%;
+      a {
+        .rewards_sony_main_image {
+          width: 94%;
+          padding-right: 3%;
+          padding-left: 3%;
+        }
+      }
+
+      .rewards_redemption_section_heading {
+        font-family: $font-primary;
+        float: none;
+        padding-left: 20px;
+      }
+
+      .rewards_account_error_message {
+        width: 94%;
+      }
+
+      .rewards_redemption_category {
+
+        padding: 20px;
+        padding-top: 0px;
+        margin-bottom: 20px;
+
+        .rewards_redemption_category_logo {
+          margin: 0;
+          display: inline-block;
+        }
+
+        .rewards_redemption_category_heading {
+          width: 200px;
+        }
+
+        .rewards_redemption_category_data {
+          width: 0%;
+          float: left;
+          display: inline-block;
+        }
+
+        .rewards_redemption_category_content {
+		  overflow: auto;
+		  width: 100%;
+          margin-bottom: 0px;
+          padding-left: 0px;
+
+          .rewards_redemption_button {
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+    .rewards_right_content {
+      width: 97%;
+      .right_rail_sony {
+        width: auto;
+        padding-left: 20px;
+        .right_rail_link_holder_sony .rewards_right_rail_link_sony {
+          padding-left: 0px;
+        }
+      }
+      .rewards_sony_right_banner, .rewards_sony_right_message {
+        margin-left: 0px;
+        padding-left: 20px;
+        width: auto;
+      }
+    }
+  }
+}
+@media only screen and (max-width : 800px){
+
+  #rewards_content .rewards_left_content .rewards_redemption_category {
+    .rewards_redemption_category_content .redemption_buttons_container {
+      position: relative;
+      top: auto;
+      right: auto;
+      float: left;
+      display: block;
+      width: 100%;
+      //padding-bottom: 3em;
+      .redemption_position_container {
+        padding-bottom: 4em;
+      }
+    }
+
+    .rewards_redemption_category_header {
+      padding: 0;
+    }
+  }
+  /* ----------------------------
+      this must be removed when other redemption options are present in the other options header..
+
+      #rewards_content .rewards_left_content .rewards_redemption_category .rewards_redemption_category_content::nth-child(0) {
+          display: none !important;
+          padding: 0 !important;
+      }
+      ---------------------------- */
+
+}
+
+
+
+// @media only screen and (max-width : 480px){
+@media only screen and (max-width : 659px){
+  .container {
+    width: 95%;
+  }
+
+
+.rewards_account_bricklet_wrapper #rewards_summary .rewards_container .rewards_card_image{
+	width:30%;
+}
+
+#rewards_summary.single_account_earn{
+	height: auto;
+}
+
+.rewards_account_bricklet_wrapper{
+	#rewards_summary{
+		.rewards_balance_info{
+				.rewards_balance_container{
+					.rewards_currency{
+						float: none !important;
+						display:block !important;
+					}
+				}
+			}
+		}
+	&.multiple_accounts{
+		padding-top: 20px !important;
+	}
+}
+
+.rewards_account_bricklet_wrapper{
+	#rewards_summary{
+	&.multiple_accounts{
+		padding-top: 20px !important;
+	}
+		.rewards_container{
+			.rewards_account_info{
+				width:50%;
+			}	
+		}
+	}	
+}
+
+
+#rewards_earn_bricklet{
+	display:none;
+}
+
+.bricklets_wrapper{
+	@include all-flex-direction(column);
+	#rewards_earn_bricklet_mobile{
+	 	width: auto;
+	 	height: auto;
+	 	background: #fff;
+	    border-radius: 3px;
+	    box-shadow: 0 1px 3px gray;
+	    display: inline-block;
+	    margin-bottom: 30px;
+	    :hover {
+	    	cursor: pointer;
+	    }
+	 	.rewards_earn_main_mobile{
+      @include display-flex();
+	 		.rewards_earn_header{
+	 			border-bottom: none;
+	 			font-weight: bold;
+	 			@include all-flex-order(1);
+			    width: 90%;
+		    	padding-bottom: 0px;
+		    	margin-bottom: auto;
+		    	margin-top: auto;
+			    font-size: 1.6rem;
+	 		}
+	 		#rewards_earn_currency_image{
+	 			height: 35px;
+	 			float: none;
+	 			margin-right: initial;
+    			margin-top: initial;
+    			padding: 14px;
+	 		}
+	 		#arrowImage{
+	 			@include all-flex-order(2);
+			    font-size: 25px;
+			    color: #0D74AF;
+			    margin-right: 20px;
+			    margin-top: 20px;
+	 		}
+	 	}
+		.rewards_earn_info_wrapper{
+			transition: .8s;
+			overflow: hidden;
+			.rewards_earn_info_text{
+			    text-align: center;
+			    width: 90%;
+			    margin-left: auto;
+			    margin-right: auto;
+			    border-top: 1px solid #E8E4E7;
+			    padding-top: 20px;
+			    font-size: 1.5rem;
+			}
+		}
+		.rewards_earn_info_wrapper.hidden{
+			max-height:0;
+		}
+		.earnMoreDetailsLinkWrapper{
+			border-top: none;
+			text-align:center;
+			font-weight: bold;
+		}
+	}	
+}
+
+
+
+  #rewards_content .rewards_left_content {
+    .rewards_redemption_category {
+      margin-bottom: 0;
+      padding: 10px;
+      .rewards_redemption_category_content {
+        // margin: 0 0 20px;
+        // margin: 0;
+        margin: 0 auto;
+        width: 100%;
+        .redemption_buttons_container {
+          position: relative;
+          display: block;
+          float: none;
+          clear: both;
+          // width: 90%;
+          margin: 0 auto;
+          top: inherit;
+          // right: inherit;
+          padding-bottom: 10px;
+          .redemption_position_container {
+            float: none;
+            width: 100%;
+            // margin-left: -5%;
+            padding-bottom: 0;
+          }
+          .c1-button {
+            // width: 97%;
+            width: auto;
+            margin: 0.5em 10px;
+            display: block;
+            text-align: center;
+          }
+          .is-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+    #rewards_content .rewards_right_content {
+      .right_rail_link_holder {
+        margin-top: 10px;
+      }
+    }
+  }
+
+
+  #rewards_summary {
+
+    .rewards_container {
+
+      .rewards_card_image {
+        width: 30%;
+        padding: 0;
+        margin: 0 1%;
+      }
+
+      .rewards_account_info {
+        width: 65%;
+        margin-left: 3%;
+
+        .rewards_account_name {
+          font-family: $font-primary;
+          margin-bottom: 4px;
+          font-size: 18px;
+        }
+        .rewards_account_number {
+          font-size: 14px;
+        }
+      }
+
+      .rewards_balance_info {
+        float: left;
+        width: auto;
+        margin-left: 3%;
+        padding-bottom: 8px;
+        font-family: $font-primary;
+        .rewards_balance_container {
+          padding-top: 5px;
+          float: left;
+
+          .rewards_balance {
+            display: inline-block;
+            font-size: 18px;
+            margin-right: 5px;
+          }
+
+          .rewards_currency {
+            display: inline-block;
+            float: none;
+            font-size: 14px;
+          }
+
+        }
+      }
+      /*
+            * Sony redeem rewards balance
+            */
+      .outer_div {
+        width: 100%;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  #rewards_accounts {
+    .rewards_account {
+      width:50%;
+    }
+  }
+
+  #rewards_content {
+
+    .rewards_left_content {
+
+      .rewards_redemption_button {
+        width: 100%;
+        text-align: center;
+        margin-right: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width : 350px){
+
+  #rewards_accounts {
+    .rewards_account {
+      width:100%;
+    }
+  }
+
+  .rewards_redemption_category_content {
+    // margin-right: 20px;
+    .rewards_redemption_button {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  #rewards_content .rewards_left_content .rewards_redemption_category .rewards_redemption_category_header .rewards_redemption_category_data .rewards_redemption_category_heading {
+    font-size: 1.6rem;
+    line-height: 3em;
+  }
+  #rewards_content .rewards_right_content {
+    .right_rail_link_holder {
+      width: 90%;
+    }
+  }
+}
