@@ -1,0 +1,104 @@
+@font-face{
+  font-family:'BentonSans';
+  src: url('https://www.aexp-static.com/nav/ngn/fonts/3be50273-0b2e-4aef-ae68-882eacd611f9-1.ttf') format("truetype"),
+  url('https://www.aexp-static.com/nav/ngn/fonts/3be50273-0b2e-4aef-ae68-882eacd611f9-2.eot');
+}
+.iCContainer .iCCenterAlign {
+    padding: 10px;
+}
+.footer {
+    margin-top: -25px;
+}
+.iCWrapper .iCContentSection .iCContent h1 {
+    font-size: 225%;
+    margin: 10px 0;
+    font-weight: normal;
+    line-height: 1.25em;
+    color: #002663;
+}
+.iCWrapper .iCContentSection .iCContent h2 {
+    font-size: 140%;
+    margin: 10px 0;
+    font-weight: bold;
+    line-height: 1.25em;
+}
+#Mod3 {
+    background-image: url("https://icm.americanexpress.com/us/loyalty/consumer/thirdparty/amazon/hero_Amazon.jpg");
+    height: 213px;
+    background-size: 100%;
+}
+#Mod4 .iCGrid980  div.iCContainer {
+    padding: 20px !important;
+}
+#Mod4-seccon1 {
+    width: 90%;
+    margin: 0 auto;
+}
+.iCContent .iCGrid980{
+    max-width: 1020px;
+}
+#Mod4-seccon1 a , #Mod5-seccon1 a {
+    color: #009BBB;
+}
+#Mod5 h2 {
+    color: black;
+    font-size: 120%;
+    font-weight: 600;
+    font-family:BentonSans;
+}
+#Mod5-secicon1, #Mod5-secicon2, #Mod5-secicon3 {
+    position: absolute;
+    margin-left: -40px;
+    margin-top: -25px;
+}
+#Mod5-secicon1 img {
+    width: 70px;
+    height: 90px;
+}
+#Mod5-secicon2 img , #Mod5-secicon3 img {
+    width: 80px;
+    height: 90px;
+}
+#Mod5-seccon1 {
+    margin-left: 20px;
+}
+#Mod5-seccon2, #Mod5-seccon3 {
+    margin-left: 30px;
+}
+.iCWrapper .iCThreeCol .iCThreeColContainer .iCLeftCol {
+    margin-right: 20px !important;
+}
+.footerTerms {
+    text-align: left;
+    padding: 10px 0%;
+}
+#Mod5-seccon1 h3 , #Mod5-seccon2 h3, #Mod5-seccon3 h3 {
+    font-size: 100%;
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+.footerTerms p:first-child {
+    margin-top: 10px;
+}
+#mr_footer {
+    border-top: 1px solid #CCC;
+    padding-top: 11px;
+    margin: 25px 0% 0% 0%;
+}
+.need_help {
+    margin-bottom: 0 !important;
+}
+.need_help p {
+    margin-bottom: 7px;
+}
+body {
+    margin: 0;
+    font-size: 100%;
+    font-family: BentonSans, "Arial", Helvetica,sans-serif;
+    color: #4d4f53;
+}
+#Mod5-seccon3{
+    position: relative;
+    z-index: 1000;
+}
